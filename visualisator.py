@@ -52,10 +52,10 @@ def visualise_interval(input_nums):
     cur_cord = 1
     for x in input_nums:
         if cords.get(x) is None:
-            cords[x] = [(cur_cord, x)]
+            cords[x] = [(cur_cord, len(input_nums) - x)]
 
         else:
-            cords[x].append((cur_cord, x))
+            cords[x].append((cur_cord, len(input_nums) - x))
         cur_cord += 0.6
 
     for cord in cords:
