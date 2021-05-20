@@ -9,7 +9,7 @@ def visualise_clicks(clicks, colors):
                   background_color='white', key='graph')]
     ]
 
-    window = sg.Window('Graph of Sine Function', layout, grab_anywhere=True, finalize=True)
+    window = sg.Window('Раскрашенный граф', layout, grab_anywhere=True, finalize=True)
     graph = window['graph']
 
     y_count, x_count = 0, 0
@@ -17,7 +17,7 @@ def visualise_clicks(clicks, colors):
         y_count += 1
         x_count += 1
 
-    cords = {dot: get_cords(len(colors), dot) for dot in colors}
+    cords = {dot: get_dot_cords(len(colors), dot) for dot in colors}
 
     for dot in cords:
         graph.draw_point(tuple([(n * 40) for n in cords[dot]]), size=5)
@@ -34,6 +34,52 @@ def visualise_clicks(clicks, colors):
     window.close()
 
 
-def get_cords(count, current_number):
+def get_dot_cords(count, current_number):
     step = (2 * math.pi) / count
     return math.sin(step * current_number), math.cos(step * current_number)
+
+
+def visualise_interval(input_nums):
+    layout = [
+        [sg.Graph(canvas_size=(800, 400), graph_bottom_left=(-105, -105), graph_top_right=(105, 105),
+                  background_color='white', key='graph')]
+    ]
+
+    window = sg.Window('Интервальный граф', layout, grab_anywhere=True, finalize=True)
+
+    cords = {}
+
+    cur_cord = 1
+    for x in input_nums:
+        if cords.get(x) is None:
+            cords[x] = [(cur_cord, x)]
+
+        else:
+            cords[x].append((cur_cord, x))
+        cur_cord += 0.6
+
+    for cord in cords:
+        window['graph'].draw_line(point_from=tuple(
+            [(x * 9) - 100 for x in cords[cord][0]]
+        ),
+            point_to=tuple(
+                [(x * 9) - 100 for x in cords[cord][1]]
+            ),
+            width=3
+        )
+        window['graph'].draw_text(f'{cord}', tuple([(x * 9) - 103 for x in cords[cord][0]]))
+        window['graph'].draw_line(point_from=tuple(
+            [(x * 9) - 100 for x in cords[cord][0]]
+        ),
+            point_to=((cords[cord][0][0] * 9) - 100, -100),
+            width=1
+        )
+        window['graph'].draw_line(point_from=tuple(
+            [(x * 9) - 100 for x in cords[cord][1]]
+        ),
+            point_to=((cords[cord][1][0] * 9) - 100, -100),
+            width=1
+        )
+
+    window.read()
+    window.close()
