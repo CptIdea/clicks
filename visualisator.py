@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 
 def visualise_clicks(clicks, colors):
     layout = [
-        [sg.Graph(canvas_size=(400, 400), graph_bottom_left=(-105, -105), graph_top_right=(105, 105),
+        [sg.Graph(canvas_size=(600, 600), graph_bottom_left=(-105, -105), graph_top_right=(105, 105),
                   background_color='white', key='graph')]
     ]
 
@@ -18,17 +18,17 @@ def visualise_clicks(clicks, colors):
         x_count += 1
 
     cords = {dot: get_dot_cords(len(colors), dot) for dot in colors}
-
+    multiplier = 80
     for dot in cords:
-        graph.draw_point(tuple([(n * 40) for n in cords[dot]]), size=5)
-        graph.draw_text(f'{dot}({colors[dot]})', tuple([(n * 50) for n in cords[dot]]))
+        graph.draw_point(tuple([(n * multiplier) for n in cords[dot]]), size=5)
+        graph.draw_text(f'{dot}({colors[dot]})', tuple([(n * (multiplier + 10)) for n in cords[dot]]))
 
     for click in clicks:
         listed_click = list(click)
         for i in range(len(listed_click) - 1):
             for to_dot in listed_click[i + 1:]:
-                graph.draw_line(point_from=tuple([(n * 40) for n in cords[listed_click[i]]]),
-                                point_to=tuple([(n * 40) for n in cords[to_dot]]))
+                graph.draw_line(point_from=tuple([(n * multiplier) for n in cords[listed_click[i]]]),
+                                point_to=tuple([(n * multiplier) for n in cords[to_dot]]))
 
     window.read()
     window.close()
@@ -41,7 +41,7 @@ def get_dot_cords(count, current_number):
 
 def visualise_interval(input_nums):
     layout = [
-        [sg.Graph(canvas_size=(800, 400), graph_bottom_left=(-105, -105), graph_top_right=(105, 105),
+        [sg.Graph(canvas_size=(1400, 700), graph_bottom_left=(-105, -105), graph_top_right=(105, 105),
                   background_color='white', key='graph')]
     ]
 
@@ -58,26 +58,28 @@ def visualise_interval(input_nums):
             cords[x].append((cur_cord, len(input_nums) - x))
         cur_cord += 0.6
 
+    multiplier = 1400 / (len(input_nums) / 2) / 15
+
     for cord in cords:
         window['graph'].draw_line(point_from=tuple(
-            [(x * 9) - 100 for x in cords[cord][0]]
+            [(x * multiplier) - 100 for x in cords[cord][0]]
         ),
             point_to=tuple(
-                [(x * 9) - 100 for x in cords[cord][1]]
+                [(x * multiplier) - 100 for x in cords[cord][1]]
             ),
             width=3
         )
-        window['graph'].draw_text(f'{cord}', tuple([(x * 9) - 103 for x in cords[cord][0]]))
+        window['graph'].draw_text(f'{cord}', tuple([(x * multiplier) - 102 for x in cords[cord][0]]))
         window['graph'].draw_line(point_from=tuple(
-            [(x * 9) - 100 for x in cords[cord][0]]
+            [(x * multiplier) - 100 for x in cords[cord][0]]
         ),
-            point_to=((cords[cord][0][0] * 9) - 100, -100),
+            point_to=((cords[cord][0][0] * multiplier) - 100, -100),
             width=1
         )
         window['graph'].draw_line(point_from=tuple(
-            [(x * 9) - 100 for x in cords[cord][1]]
+            [(x * multiplier) - 100 for x in cords[cord][1]]
         ),
-            point_to=((cords[cord][1][0] * 9) - 100, -100),
+            point_to=((cords[cord][1][0] * multiplier) - 100, -100),
             width=1
         )
 
