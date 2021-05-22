@@ -73,13 +73,13 @@ def visualise_interval(input_nums):
         window['graph'].draw_line(point_from=tuple(
             [(x * multiplier) - 100 for x in cords[cord][0]]
         ),
-            point_to=((cords[cord][0][0] * multiplier) - 100, -100),
+            point_to=((cords[cord][0][0] * multiplier) - 100, -80),
             width=1
         )
         window['graph'].draw_line(point_from=tuple(
             [(x * multiplier) - 100 for x in cords[cord][1]]
         ),
-            point_to=((cords[cord][1][0] * multiplier) - 100, -100),
+            point_to=((cords[cord][1][0] * multiplier) - 100, -80),
             width=1
         )
 
