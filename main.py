@@ -62,8 +62,7 @@ while True:
 
         new_input = generate_random_graph(nums)
         win['main_input'].update(new_input)
-        visualise_clicks(*print_reload(win, new_input))
-        visualise_interval(list(map(int, new_input.split())))
+        visualise_task(*print_reload(win,new_input),list(map(int, new_input.split())))
 
     if event == 'interval':
         visualise_interval(list(map(int, values["main_input"].split())))
