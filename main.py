@@ -9,9 +9,13 @@ import PySimpleGUI as sg
 def print_reload(win_local, nums_local):
     clicks = get_clicks(list(map(int, nums_local.split())))
     colors = get_clicks_color(clicks)
+    max = 0
+    for i in colors:
+        if colors[i] > max:
+            max = colors[i]
     string_colors = "\n".join([f'{x[0]}->{x[1]}' for x in colors.items()])
-    win_local['click_output'].update(f'Клики: {clicks}\n\nЦвета: \n{string_colors}')
-    print(f'Интервалы: {nums_local}\nКлики: {clicks}\n\nЦвета: \n{string_colors}')
+    win_local['click_output'].update(f'Клики: {clicks}\nЦветов:{max}\n\nЦвета: \n{string_colors}')
+    print(f'Интервалы: {nums_local}\nКлики: {clicks}\nЦветов:{max}\n\nЦвета: \n{string_colors}')
     return clicks, colors
 
 
