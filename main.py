@@ -1,8 +1,10 @@
 from calculator import get_clicks
 from colorize import get_clicks_color
-from visualisator import visualise_clicks, visualise_interval
+from visualisator import visualise_clicks, visualise_interval, visualise_task
 from asker import ask
 from generations import generate_random_graph
+import clipboard
+import argparse
 import PySimpleGUI as sg
 
 
@@ -16,8 +18,20 @@ def print_reload(win_local, nums_local):
     string_colors = "\n".join([f'{x[0]}->{x[1]}' for x in colors.items()])
     win_local['click_output'].update(f'Клики: {clicks}\nЦветов:{max}\n\nЦвета: \n{string_colors}')
     print(f'Интервалы: {nums_local}\nКлики: {clicks}\nЦветов:{max}\n\nЦвета: \n{string_colors}')
+    # clipboard.copy(f'Интервалы: {nums_local}\nКлики: {clicks}\nЦветов:{max}\n\nЦвета: \n{string_colors}')
     return clicks, colors
 
+
+parser = argparse.ArgumentParser(description="Генератор")
+parser.add_argument("--gen", type=int, help="Максимальное число для генерации", default=0)
+args = parser.parse_args()
+if args.gen != 0:
+    input_generated = generate_random_graph(args.gen)
+    clicks_generated = get_clicks(list(map(int, input_generated.split())))
+    colors_generated = get_clicks_color(clicks_generated)
+
+    visualise_task(clicks_generated, colors_generated, list(map(int, input_generated.split())))
+    exit(1)
 
 layout = [
     [sg.Text("Ввод интервального графа номерами начал и конца", tooltip="Например: '1 2 3 2 1 4 5 6 3 6 4 5'")],
