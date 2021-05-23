@@ -3,7 +3,7 @@ from colorize import get_clicks_color
 from visualisator import visualise_clicks, visualise_interval, visualise_task
 from asker import ask
 from generations import generate_random_graph
-import clipboard
+# import clipboard
 import argparse
 import PySimpleGUI as sg
 
