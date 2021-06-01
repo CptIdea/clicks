@@ -46,7 +46,6 @@ win = sg.Window("Интервальный граф", layout=layout)
 while True:
     event, values = win.read()
     if event == sg.WINDOW_CLOSED:
-        print("Спасибо за использование!")
         break
 
     if event == 'reload':

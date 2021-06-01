@@ -8,7 +8,7 @@ def ask(thing: str) -> str:
         [sg.Button('Ввод')]
     ]
 
-    win = sg.Window(title='Спрашивалка', layout=layout)
+    win = sg.Window(title='Ввод', layout=layout)
 
     ans = win.read()[1]['input']
     win.close()
