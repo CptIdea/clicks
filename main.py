@@ -31,7 +31,7 @@ if args.gen != 0:
     colors_generated = get_clicks_color(clicks_generated)
 
     visualise_task(clicks_generated, colors_generated, list(map(int, input_generated.split())))
-    exit(1)
+    exit(0)
 
 layout = [
     [sg.Text("Ввод интервального графа номерами начал и конца", tooltip="Например: '1 2 3 2 1 4 5 6 3 6 4 5'")],
